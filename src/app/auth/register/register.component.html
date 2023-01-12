@@ -1,0 +1,71 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-lg-6 col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="text-center card-title">FlixTor</h1>
+        <div class="alert alert-danger" *ngIf="error">
+          <p class="m-0">{{error}}</p>
+        </div>
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <div class="input-group mb-3">
+            <span class="input-group-text"><fa-icon icon="user" class="fa-fw"></fa-icon></span>
+            <input type="text" autocomplete="given-name" class="form-control" placeholder="Firstname" name="firstname"
+                   formControlName="firstname">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><fa-icon icon="id-card" class="fa-fw"></fa-icon></span>
+            <input type="text" autocomplete="additional-name family-name" class="form-control" placeholder="Lastname" name="lastname"
+                   formControlName="lastname">
+          </div>
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary d-flex" (click)="d.toggle()" type="button">
+              <fa-icon icon="calendar-alt" class="fa-fw"></fa-icon>
+            </button>
+            <input
+              class="form-control"
+              placeholder="Birthdate"
+              name="dp"
+              ngbDatepicker
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+              #d="ngbDatepicker"
+              formControlName="birthdate"
+              aria-describedby="formatHelp"
+              autocomplete="bday"
+            />
+            <div id="formatHelp" class="form-text w-100">
+              Format: yyyy-mm-dd
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><fa-icon icon="venus-mars" class="fa-fw"></fa-icon></span>
+            <select class="form-select" formControlName="gender" autocomplete="sex">
+              <option value="pH" selected disabled>Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Neither">Rather not say</option>
+            </select>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><fa-icon icon="envelope" class="fa-fw"></fa-icon></span>
+            <input type="email" autocomplete="username" class="form-control" placeholder="Email" name="email"
+                   formControlName="email">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><fa-icon icon="lock" class="fa-fw"></fa-icon></span>
+            <input type="password" autocomplete="current-password" class="form-control" placeholder="Password"
+                   name="password" formControlName="password">
+          </div>
+          <div class="d-grid justify-content-end">
+            <button class="btn-primary btn" type="submit"
+                    [disabled]="!registerForm.valid">Register
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer d-grid p-3 text-center">
+        <a class="btn btn-link" routerLink="/login">Already have an account? Login</a>
+      </div>
+    </div>
+  </div>
+</div>

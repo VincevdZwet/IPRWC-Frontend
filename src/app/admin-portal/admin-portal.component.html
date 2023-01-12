@@ -1,0 +1,44 @@
+<form>
+  <div class="mb-3 row">
+    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+    <div class="col-xs-3 col-sm-auto">
+      <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter"/>
+    </div>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Product</th>
+    <th scope="col">Duration</th>
+    <th scope="col">Price</th>
+    <th scope="col">Release Year</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of (filteredProducts$ | async); index as i; trackBy: trackItem">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>
+      <ngb-highlight [result]="product.title" [term]="filter.value"></ngb-highlight>
+    </td>
+    <td>
+      <ngb-highlight [result]="product.duration | number" [term]="filter.value"></ngb-highlight>
+    </td>
+    <td>
+      <ngb-highlight [result]="product.price | number" [term]="filter.value"></ngb-highlight>
+    </td>
+    <td>
+      <ngb-highlight [result]="product.releaseDate?.toDateString()" [term]="filter.value"></ngb-highlight>
+    </td>
+    <td>
+      <div class="btn-group btn-group-sm" role="group" aria-label="Buttons for editing and deleting a product">
+        <button class="btn btn-warning" (click)="onEdit(product)">Edit</button>
+        <button class="btn btn-danger" (click)="onDelete(product.id)">Delete</button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>

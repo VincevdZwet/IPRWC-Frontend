@@ -1,20 +1,90 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {HeaderComponent} from "./header/header.component";
+import {LoginComponent} from './auth/login/login.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HttpInterceptorService} from "./interceptors/http-interceptor.service";
+import {RegisterComponent} from './auth/register/register.component';
+import {DatepickerComponent} from "./shared/utilities/datepicker.component";
+import {ProductsComponent} from './products/products.component';
+import {ProductComponent} from './products/product/product.component';
+import {
+  faCalendarAlt, faClock,
+  faEnvelope, faEuroSign,
+  faFilm,
+  faHeart,
+  faIdCard, faImage,
+  faLock, faMoneyCheckAlt, faShoppingCart, faTimes,
+  faUser,
+  faVenusMars
+} from "@fortawesome/free-solid-svg-icons";
+import {ProductEditComponent} from './products/product-edit/product-edit.component';
+import {AdminPortalComponent} from './admin-portal/admin-portal.component';
+import {NgbdTableFiltering} from "./admin-portal/table-filtering";
+import {DecimalPipe} from "@angular/common";
+import {ProductNewComponent} from './admin-portal/product-new/product-new.component';
+import { CartComponent } from './cart/cart.component';
+import { CartListComponent } from './cart/cart-list/cart-list.component';
+import {CheckoutModalComponent} from "./cart/checkout-modal/checkout-modal.component";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProductsComponent,
+    ProductComponent,
+    ProductEditComponent,
+    AdminPortalComponent,
+    ProductNewComponent,
+    CartComponent,
+    CartListComponent,
+    CheckoutModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    HttpClientModule,
+    DatepickerComponent,
+    NgbdTableFiltering,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    },
+    DecimalPipe
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(
+      faEnvelope,
+      faLock,
+      faUser,
+      faIdCard,
+      faCalendarAlt,
+      faVenusMars,
+      faHeart,
+      faFilm,
+      faClock,
+      faImage,
+      faShoppingCart,
+      faTimes,
+      faEuroSign,
+      faMoneyCheckAlt
+    )
+  }
+}

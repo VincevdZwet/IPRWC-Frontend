@@ -1,0 +1,68 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-lg-6 col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="text-center card-title" *ngIf="!productToBeEdited">Add movie</h1>
+        <h1 class="text-center card-title" *ngIf="productToBeEdited">Edit movie</h1>
+        <div class="alert alert-danger" *ngIf="error">
+          <p class="m-0">{{error}}</p>
+        </div>
+        <form [formGroup]="productForm" (ngSubmit)="onAdd()">
+          <div class="input-group mb-3">
+            <span class="input-group-text"><fa-icon icon="film" class="fa-fw"></fa-icon></span>
+            <input type="text" class="form-control" placeholder="Movie title" name="title"
+                   formControlName="title">
+          </div>
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary d-flex" (click)="d.toggle()" type="button">
+              <fa-icon icon="calendar-alt" class="fa-fw"></fa-icon>
+            </button>
+            <input
+              class="form-control"
+              placeholder="Release date"
+              name="dp"
+              ngbDatepicker
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+              #d="ngbDatepicker"
+              formControlName="releaseDate"
+              aria-describedby="formatHelpDate"
+            />
+            <div id="formatHelpDate" class="form-text w-100">
+              Format: yyyy-mm-dd
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><fa-icon icon="clock" class="fa-fw"></fa-icon></span>
+            <input type="text" class="form-control" placeholder="Duration of the movie" name="duration"
+                   formControlName="duration" aria-describedby="formatHelpDuration">
+            <div id="formatHelpDuration" class="form-text w-100">
+              Duration in <strong>minutes</strong>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><fa-icon icon="image" class="fa-fw"></fa-icon></span>
+            <input type="text" class="form-control" placeholder="Image url"
+                   name="imageUrl" formControlName="imageUrl">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><fa-icon icon="euro-sign" class="fa-fw"></fa-icon></span>
+            <input type="text" class="form-control" placeholder="Price"
+                   name="price" formControlName="price">
+          </div>
+          <div class="d-grid justify-content-end">
+            <button class="btn-primary btn" type="submit"
+                    [disabled]="!productForm.valid" *ngIf="!productToBeEdited">Add
+            </button>
+            <button class="btn-primary btn" type="submit"
+                    [disabled]="!productForm.valid" *ngIf="productToBeEdited">Edit
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer d-grid p-3 text-center">
+        <a class="btn btn-link">Already have an account? Login</a>
+      </div>
+    </div>
+  </div>
+</div>

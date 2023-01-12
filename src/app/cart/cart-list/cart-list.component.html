@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="mb-0">Your products</h4>
+  </div>
+  <ul class="list-group list-group-flush">
+    <div *ngIf="cartProducts.length > 0">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-4"><strong>Title</strong></div>
+          <div class="col-4"><strong>Release date</strong></div>
+          <div class="col-2"><strong>Price</strong></div>
+          <div class="col-2"><strong>Remove</strong></div>
+        </div>
+      </li>
+
+      <li class="list-group-item" *ngFor="let product of cartProducts">
+        <div class="row">
+          <div class="col-4"><span>{{ product.title }}</span></div>
+          <div class="col-4"><span>{{ product.releaseDate | date }}</span></div>
+          <div class="col-2"><span>{{ product.price | number }}</span></div>
+          <div class="col-2">
+            <fa-icon icon="times" class="text-danger" (click)="removeProduct(product)"
+                     style="cursor: pointer;"></fa-icon>
+          </div>
+        </div>
+      </li>
+    </div>
+    <a routerLink="/" class="list-group-item list-group-item-action" *ngIf="cartProducts.length < 1">
+      <h5>There are no items in your cart, you should add some.</h5>
+      <span>Click <strong>here</strong> to see our items!</span>
+    </a>
+  </ul>
+</div>

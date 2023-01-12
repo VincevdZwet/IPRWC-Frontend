@@ -1,0 +1,22 @@
+<div class="row mt-5">
+  <div class="col-8">
+    <app-cart-list [cartProducts]="cartProducts"></app-cart-list>
+  </div>
+  <div class="col-4">
+    <div class="card d-flex">
+      <div class="card-header">
+        <h4 class="mb-0">Overview</h4>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div>Artikelen ({{ cartProducts.length }}) <span class="fa-pull-right">&euro;{{totalPrice}}</span></div>
+        </li>
+      </ul>
+      <div *ngIf="cartProducts.length > 0" class="card-footer d-flex justify-content-between align-items-center">
+        <a routerLink="/" class="">Continue shopping</a>
+        <button class="btn btn-primary" (click)="onCheckout()">Checkout</button>
+<!--        <button class="btn btn-primary" (click)="onCheckout()" [disabled]="cartProducts.length > 1">Checkout</button>-->
+      </div>
+    </div>
+  </div>
+</div>
