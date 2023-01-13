@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {LocalUserService} from "../../shared/services/localUser.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   error: string | undefined;
 
-  constructor(private authService: AuthService, private userInfoService: LocalUserService) {
+  constructor(private authService: AuthService, private localUserService: LocalUserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -34,17 +35,10 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(email, password, rememberMe).subscribe({
       next: () => {
-        if (this.userInfoService.isLoggedIn){
-          //Route
+        if (this.localUserService.isLoggedIn.value) {
+          this.router.navigate(['']);
           this.loginForm.reset();
         }
-
-        // this.authService.user.subscribe({
-        //   next: user => {
-        //     //Route
-        //     this.loginForm.reset();
-        //   }
-        // })
       },
       error: errorMessage => {
         this.error = errorMessage;

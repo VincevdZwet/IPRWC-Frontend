@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
 import {LocalUserModel} from "../models/localUser.model";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({providedIn: "root"})
 export class LocalUserService {
-  private _loggedIn: boolean = false;
+  private _loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _localUser: LocalUserModel | undefined;
 
   get localUser(): LocalUserModel {
@@ -14,11 +15,11 @@ export class LocalUserService {
     this._localUser = value;
   }
 
-  get isLoggedIn(): boolean {
+  get isLoggedIn(): BehaviorSubject<boolean> {
     return this._loggedIn;
   }
 
   set setLoggedIn(value: boolean) {
-    this._loggedIn = value;
+    this._loggedIn.next(value);
   }
 }

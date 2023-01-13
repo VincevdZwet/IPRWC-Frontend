@@ -1,34 +1,31 @@
 import {Injectable} from "@angular/core";
 import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {exhaustMap, Observable, take} from "rxjs";
+import {Observable} from "rxjs";
 import {AuthService} from "../auth/auth.service";
+import {LocalUserService} from "../shared/services/localUser.service";
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private localUserService: LocalUserService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap(user => {
-        const urlReq = req.clone({
-          url: 'http://localhost:8080' + req.url
-        });
+    const urlReq = req.clone({
+      url: 'http://localhost:8080' + req.url
+    });
 
-        if (!user) {
-          return next.handle(urlReq);
-        }
-        const modifiedReq = urlReq.clone({
-          headers: new HttpHeaders()
-            .set('content-type', 'application/json')
-            .set(
-              'Authorization',
-              'Bearer ' + user.token
-            )
-        });
-        return next.handle(modifiedReq);
-      })
-    );
+    if (!this.localUserService.isLoggedIn.value) {
+      return next.handle(urlReq);
+    }
+
+    const modifiedReq = urlReq.clone({
+      headers: new HttpHeaders()
+        .set('content-type', 'application/json')
+        .set(
+          'Authorization',
+          'Bearer ' + this.localUserService.localUser.token
+        )
+    });
+    return next.handle(modifiedReq);
   }
 }

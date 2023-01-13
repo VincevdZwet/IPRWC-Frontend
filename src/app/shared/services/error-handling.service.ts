@@ -6,7 +6,6 @@ import {ErrorModel} from "../error.model";
 @Injectable({providedIn: "root"})
 export class ErrorHandlingService{
   public handleError(errorRes: HttpErrorResponse) {
-    console.log(errorRes)
     let errorMessage = 'An unknown error occurred!';
     if (!errorRes.error || !errorRes.error.message) {
       return throwError(() => errorMessage);

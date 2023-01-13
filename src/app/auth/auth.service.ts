@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, catchError, tap} from "rxjs";
+import {catchError, tap} from "rxjs";
 import {LocalUserModel} from "../shared/models/localUser.model";
 import {HttpClient} from "@angular/common/http";
 import {ErrorHandlingService} from "../shared/services/error-handling.service";
@@ -22,8 +22,6 @@ export interface IAuthResponseData {
 
 @Injectable({providedIn: "root"})
 export class AuthService {
-  user = new BehaviorSubject<LocalUserModel | null>(null);
-
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -32,29 +30,12 @@ export class AuthService {
   }
 
   register(user: UserModel) {
-    // this.http.post('/auth/register', {
-    //     firstname: user.firstname,
-    //     lastname: user.lastname,
-    //     birthdate: user.birthdate,
-    //     gender: user.gender,
-    //     email: user.email,
-    //     password: user.password
-    //   }
-    // ).pipe(catchError(this.errorHandlingService.handleError)).subscribe({
-    //   next: () => {
-    //     console.log("done");
-    //     console.log(user);
-    //   }
-    // });
-
-    this.http.post('/auth/register',
+    return this.http.post<IAuthResponseData>('/auth/register',
       user
-    ).pipe(catchError(this.errorHandlingService.handleError)).subscribe({
-      next: () => {
-        console.log("done");
-        console.log(user);
-      }
-    });
+    ).pipe(catchError(this.errorHandlingService.handleError), tap(response => {
+        this.handleAuthentication(response, false)
+      })
+    );
   }
 
   login(email: string, password: string, rememberMe: boolean) {
@@ -82,23 +63,22 @@ export class AuthService {
       return;
     }
 
-    this.localUserService.setLoggedIn = true;
-    this.localUserService.localUser = userData;
+    if (userData.user === undefined || userData.token === undefined) {
+      this.logout();
+      return;
+    }
 
-    // const loadedUser = new LocalUserModel(userData._token);
-    // if (loadedUser.token) {
-    //   this.user.next(loadedUser);
-    // }
+    this.localUserService.localUser = userData;
+    this.localUserService.setLoggedIn = true;
   }
 
 
   logout() {
-    // this.user.next(null);
     localStorage.removeItem('userData');
     sessionStorage.removeItem('userData');
     this.localUserService.localUser = undefined;
     this.localUserService.setLoggedIn = false;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/movies']);
   }
 
   private handleAuthentication(response: IAuthResponseData, rememberMe: boolean) {
@@ -108,17 +88,13 @@ export class AuthService {
 
     const localUser = new LocalUserModel(response.token, response.user)
 
-    //Maybe delete this
-    // const user = new LocalUserModel(response.token);
-    // this.user.next(user);
-
     if (rememberMe) {
       localStorage.setItem('userData', JSON.stringify(localUser));
     } else {
       sessionStorage.setItem('userData', JSON.stringify(localUser));
     }
 
-    this.localUserService.setLoggedIn = true;
     this.localUserService.localUser = localUser;
+    this.localUserService.setLoggedIn = true;
   }
 }

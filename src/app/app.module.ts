@@ -11,16 +11,21 @@ import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpInterceptorService} from "./interceptors/http-interceptor.service";
 import {RegisterComponent} from './auth/register/register.component';
-import {DatepickerComponent} from "./shared/utilities/datepicker.component";
 import {ProductsComponent} from './products/products.component';
 import {ProductComponent} from './products/product/product.component';
 import {
-  faCalendarAlt, faClock,
-  faEnvelope, faEuroSign,
+  faCalendarAlt,
+  faClock,
+  faEnvelope,
+  faEuroSign,
   faFilm,
   faHeart,
-  faIdCard, faImage,
-  faLock, faMoneyCheckAlt, faShoppingCart, faTimes,
+  faIdCard,
+  faImage,
+  faLock,
+  faMoneyCheckAlt,
+  faShoppingCart,
+  faTimes,
   faUser,
   faVenusMars
 } from "@fortawesome/free-solid-svg-icons";
@@ -29,9 +34,11 @@ import {AdminPortalComponent} from './admin-portal/admin-portal.component';
 import {NgbdTableFiltering} from "./admin-portal/table-filtering";
 import {DecimalPipe} from "@angular/common";
 import {ProductNewComponent} from './admin-portal/product-new/product-new.component';
-import { CartComponent } from './cart/cart.component';
-import { CartListComponent } from './cart/cart-list/cart-list.component';
+import {CartComponent} from './cart/cart.component';
+import {CartListComponent} from './cart/cart-list/cart-list.component';
 import {CheckoutModalComponent} from "./cart/checkout-modal/checkout-modal.component";
+import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
+import {ToastsContainer} from "./shared/toast/toasts-container.component";
 
 @NgModule({
   declarations: [
@@ -55,13 +62,18 @@ import {CheckoutModalComponent} from "./cart/checkout-modal/checkout-modal.compo
     ReactiveFormsModule,
     FontAwesomeModule,
     HttpClientModule,
-    DatepickerComponent,
     NgbdTableFiltering,
+    ToastsContainer
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
       multi: true
     },
     DecimalPipe

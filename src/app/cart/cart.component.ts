@@ -17,7 +17,7 @@ export class CartComponent implements OnInit {
   totalPrice: number = 0;
 
   constructor(private cartService: CartService,
-              private userInfoService: LocalUserService,
+              private localUserService: LocalUserService,
               private router: Router,
               private modalService: NgbModal) {
   }
@@ -39,11 +39,10 @@ export class CartComponent implements OnInit {
   }
 
   onCheckout() {
-    if (!this.userInfoService.isLoggedIn) {
+    if (!this.localUserService.isLoggedIn.value) {
       this.router.navigate(['/login']);
     } else {
       const modalRef = this.modalService.open(CheckoutModalComponent);
-      // modalRef.componentInstance.cartProducts = [new ProductModel({title: 'test product', releaseDate: new Date('2022-02-05'), price: 3.99})];
       modalRef.componentInstance.cartProducts = this.cartProducts;
       modalRef.componentInstance.totalPrice = this.totalPrice;
     }
