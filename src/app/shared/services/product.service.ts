@@ -13,7 +13,7 @@ export class ProductService {
 
   addProduct(product: ProductModel) {
     return this.http.put('/product/',
-      product).pipe(catchError(this.errorHandlingService.handleError))
+      product).pipe(catchError(this.errorHandlingService.handleError));
   }
 
   getProducts() {
@@ -23,7 +23,7 @@ export class ProductService {
   }
 
   deleteProduct(id: String) {
-    return this.http.delete('/product/' + id).pipe(catchError(this.errorHandlingService.handleError))
+    return this.http.delete('/product/' + id).pipe(catchError(this.errorHandlingService.handleError));
   }
 
   updateProduct(product: ProductModel) {

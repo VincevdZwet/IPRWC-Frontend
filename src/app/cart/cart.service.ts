@@ -6,14 +6,13 @@ import {plainToInstance} from "class-transformer";
 import {ErrorHandlingService} from "../shared/services/error-handling.service";
 import {HttpClient} from "@angular/common/http";
 import {CartModel} from "../shared/models/cart.model";
-import {LocalUserService} from "../shared/services/localUser.service";
 
 @Injectable({providedIn: "root"})
 export class CartService {
   public cart$: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
   public cart: ProductModel[] = [];
 
-  constructor(private errorHandlingService: ErrorHandlingService, private http: HttpClient, private localUserService: LocalUserService) {
+  constructor(private errorHandlingService: ErrorHandlingService, private http: HttpClient) {
   }
 
   public addToCart(product: ProductModel): void {

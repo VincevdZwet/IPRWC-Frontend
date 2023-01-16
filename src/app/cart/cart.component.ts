@@ -12,7 +12,7 @@ import {CheckoutModalComponent} from "./checkout-modal/checkout-modal.component"
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  product: ProductModel = new ProductModel({title: 'title', releaseDate: new Date('2023-01-07'), duration: 420})
+  product: ProductModel = new ProductModel({title: 'title', releaseDate: new Date('2023-01-07'), duration: 420});
   cartProducts: ProductModel[] = [];
   totalPrice: number = 0;
 

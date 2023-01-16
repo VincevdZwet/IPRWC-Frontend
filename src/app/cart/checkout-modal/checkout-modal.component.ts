@@ -78,7 +78,7 @@ export class CheckoutModalComponent implements OnInit {
     this.checkoutForm = new FormGroup({
       'emailSentTo': new FormControl(this.localUserService.localUser.user?.email, [Validators.required, Validators.email, Validators.pattern(/^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/)]),
       'bank': new FormControl(null, Validators.required)
-    })
+    });
   }
 
 

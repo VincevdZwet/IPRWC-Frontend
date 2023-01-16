@@ -90,7 +90,7 @@ export class AuthService {
       return;
     }
 
-    const localUser = new LocalUserModel(response.token, response.user)
+    const localUser = new LocalUserModel(response.token, response.user);
 
     if (rememberMe) {
       localStorage.setItem('userData', JSON.stringify(localUser));

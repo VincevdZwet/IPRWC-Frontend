@@ -5,7 +5,7 @@ import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {ProductService} from "../../shared/services/product.service";
 import {plainToInstance} from "class-transformer";
 import {ToastService} from "../../shared/toast/toast-service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-new',
@@ -22,14 +22,14 @@ export class ProductNewComponent implements OnInit {
   minDate = {year: this.today.getFullYear() - 100, month: 1, day: 1};
   maxDate = {year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate()};
 
-  constructor(private productService: ProductService, private toastService: ToastService, private router: Router) {
+  constructor(private productService: ProductService, private toastService: ToastService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     if (history.state.product) {
       this.productToBeEdited = history.state.product;
     } else {
-      this.router.navigate(['/new']);
+      this.router.navigate(['../new'], {relativeTo: this.route});
     }
 
     this.initProductForm();
@@ -67,10 +67,10 @@ export class ProductNewComponent implements OnInit {
   }
 
   onAdd() {
-    let newProduct = plainToInstance(ProductModel, (this.productForm.value as Object))
+    let newProduct = plainToInstance(ProductModel, (this.productForm.value as Object));
 
     //Convert NgbDateStruct to Date
-    const releaseDate = (this.productForm.get('releaseDate')?.value as NgbDateStruct)
+    const releaseDate = (this.productForm.get('releaseDate')?.value as NgbDateStruct);
     newProduct.releaseDate = new Date(releaseDate.year + "-" + releaseDate.month + "-" + releaseDate.day);
 
     if (this.productToBeEdited) {

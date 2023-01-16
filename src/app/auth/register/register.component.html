@@ -1,8 +1,9 @@
+<app-toasts></app-toasts>
 <div class="row justify-content-center mt-5">
   <div class="col-lg-6 col-md-8">
     <div class="card">
       <div class="card-body">
-        <h1 class="text-center card-title">NetVids</h1>
+        <h1 class="text-center card-title">{{userToBeEdited == null ? 'NetVids' : 'Update your profile'}}</h1>
         <div class="alert alert-danger" *ngIf="error">
           <p class="m-0">{{error}}</p>
         </div>
@@ -56,17 +57,17 @@
             <input type="password" autocomplete="current-password" class="form-control" placeholder="Password"
                    name="password" formControlName="password" aria-describedby="paswdHelp">
             <div id="paswdHelp" class="form-text w-100">
-              Your password must be atleast 8 characters long
+              Your password must be at least 8 characters long
             </div>
           </div>
           <div class="d-grid justify-content-end">
             <button class="btn-primary btn" type="submit"
-                    [disabled]="!registerForm.valid">Register
+                    [disabled]="!registerForm.valid">{{ userToBeEdited == null ? 'Register' : 'Update'}}
             </button>
           </div>
         </form>
       </div>
-      <div class="card-footer d-grid p-3 text-center">
+      <div class="card-footer d-grid p-3 text-center" *ngIf="userToBeEdited == null">
         <a class="btn btn-link" routerLink="/login">Already have an account? Login</a>
       </div>
     </div>

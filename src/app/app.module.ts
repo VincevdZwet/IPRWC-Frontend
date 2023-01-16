@@ -40,7 +40,7 @@ import {ErrorInterceptorService} from "./interceptors/error-interceptor.service"
 import {ToastsContainer} from "./shared/toast/toasts-container.component";
 import {OrdersComponent} from './orders/orders.component';
 import {OrderComponent} from './orders/order/order.component';
-import { ProductOverviewComponent } from './admin-portal/product-overview/product-overview.component';
+import {ProductOverviewComponent} from './admin-portal/product-overview/product-overview.component';
 
 @NgModule({
   declarations: [

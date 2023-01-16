@@ -14,5 +14,5 @@ export class ErrorModel {
       ['USER_DETAILS_MISSING', "We are missing some user details"],
       ['ORDER_DETAILS_MISSING', "We are missing some order details"]
     ]
-  )
+  );
 }

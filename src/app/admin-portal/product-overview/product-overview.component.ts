@@ -36,7 +36,7 @@ export class ProductOverviewComponent {
   }
 
   public trackItem(index: number, product: ProductModel) {
-    return product.title
+    return product.title;
   }
 
   getProducts() {
@@ -51,14 +51,15 @@ export class ProductOverviewComponent {
 
   match(text: string, pipe: PipeTransform): ProductModel[] {
     return this.products.filter((product) => {
-      const term = text.toLowerCase();
-      return (
-        product.title?.toLowerCase().includes(term) ||
-        pipe.transform(product.duration).includes(term) ||
-        pipe.transform(product.price).includes(term) ||
-        product.releaseDate?.toDateString().toLowerCase().includes(term)
-      );
-    })
+        const term = text.toLowerCase();
+        return (
+          product.title?.toLowerCase().includes(term) ||
+          pipe.transform(product.duration).includes(term) ||
+          pipe.transform(product.price).includes(term) ||
+          product.releaseDate?.toDateString().toLowerCase().includes(term)
+        );
+      }
+    );
   }
 
   onDelete(id: string) {
