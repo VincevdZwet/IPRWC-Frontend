@@ -23,13 +23,13 @@ import {
   faIdCard,
   faImage,
   faLock,
-  faMoneyCheckAlt, faSearch,
+  faMoneyCheckAlt,
+  faSearch,
   faShoppingCart,
   faTimes,
   faUser,
   faVenusMars
 } from "@fortawesome/free-solid-svg-icons";
-import {ProductEditComponent} from './products/product-edit/product-edit.component';
 import {AdminPortalComponent} from './admin-portal/admin-portal.component';
 import {DecimalPipe} from "@angular/common";
 import {ProductNewComponent} from './admin-portal/product-new/product-new.component';
@@ -40,6 +40,7 @@ import {ErrorInterceptorService} from "./interceptors/error-interceptor.service"
 import {ToastsContainer} from "./shared/toast/toasts-container.component";
 import {OrdersComponent} from './orders/orders.component';
 import {OrderComponent} from './orders/order/order.component';
+import { ProductOverviewComponent } from './admin-portal/product-overview/product-overview.component';
 
 @NgModule({
   declarations: [
@@ -49,14 +50,14 @@ import {OrderComponent} from './orders/order/order.component';
     RegisterComponent,
     ProductsComponent,
     ProductComponent,
-    ProductEditComponent,
     AdminPortalComponent,
     ProductNewComponent,
     CartComponent,
     CartListComponent,
     CheckoutModalComponent,
     OrdersComponent,
-    OrderComponent
+    OrderComponent,
+    ProductOverviewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,55 @@
+<app-toasts></app-toasts>
+<h1 class="mt-5">All products</h1>
+<hr>
+<form>
+  <div class="mb-3 flex-row flex-wrap d-flex justify-content-between">
+    <div class="col-sm-auto col-md-6">
+      <div class="input-group mb-3 ">
+        <span class="input-group-text"><fa-icon icon="search" class="fa-fw"></fa-icon></span>
+        <input type="text" class="form-control" placeholder="Search for product"
+               [formControl]="filter">
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-primary" routerLink="new">New product</button>
+    </div>
+  </div>
+</form>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product</th>
+      <th scope="col">Duration</th>
+      <th scope="col">Price</th>
+      <th scope="col">Release Year</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of (filteredProducts$ | async); index as i; trackBy: trackItem">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <ngb-highlight [result]="product.title" [term]="filter.value"></ngb-highlight>
+      </td>
+      <td>
+        <ngb-highlight [result]="product.duration | number" [term]="filter.value"></ngb-highlight>
+      </td>
+      <td>
+        <ngb-highlight [result]="product.price | number" [term]="filter.value"></ngb-highlight>
+      </td>
+      <td>
+        <ngb-highlight [result]="product.releaseDate?.toDateString()" [term]="filter.value"></ngb-highlight>
+      </td>
+      <td>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Buttons for editing and deleting a product">
+          <button class="btn btn-warning" (click)="onEdit(product)">Edit</button>
+          <button class="btn btn-danger" (click)="onDelete(product.id)">Delete</button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

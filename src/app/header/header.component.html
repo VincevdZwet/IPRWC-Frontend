@@ -12,20 +12,20 @@
         <li class="nav-item" routerLinkActive="active" *ngIf="user?.role == 'ADMIN'">
           <a class="nav-link" routerLink="/admin">Admin portal</a>
         </li>
-        <li class="nav-item" routerLinkActive="active" *ngIf="user?.role == 'ADMIN'">
-          <a class="nav-link" routerLink="/new">New</a>
-        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <div class="nav-item dropdown" ngbDropdown #accountDropdown="ngbDropdown">
           <a class="nav-link dropdown-toggle" ngbDropdownToggle role="button">Welcome {{user?.firstname || 'user'}}</a>
           <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
             <div class="d-grid px-3 gap-2" *ngIf="!user">
-              <button type="button" class="btn btn-primary" routerLink="/login" (click)="accountDropdown.close()">Login</button>
-              <button type="button" class="btn btn-outline-dark" routerLink="/register" (click)="accountDropdown.close()">Sign up</button>
+              <button type="button" class="btn btn-primary" routerLink="/login" (click)="accountDropdown.close()">
+                Login
+              </button>
+              <button type="button" class="btn btn-outline-dark" routerLink="/register"
+                      (click)="accountDropdown.close()">Sign up
+              </button>
             </div>
             <div *ngIf="user">
-              <li><a ngbDropdownItem role="button" class="dropdown-item">My profile</a></li>
               <li><a ngbDropdownItem role="button" class="dropdown-item" routerLink="orders">My orders</a></li>
               <li>
                 <hr class="dropdown-divider">
