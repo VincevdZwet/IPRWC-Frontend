@@ -1,4 +1,4 @@
-import {Component, PipeTransform} from '@angular/core';
+import {Component, OnDestroy, PipeTransform} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {ProductModel} from "../../shared/models/product.model";
 import {BehaviorSubject} from "rxjs";
@@ -13,7 +13,7 @@ import {map, startWith} from "rxjs/operators";
   templateUrl: './product-overview.component.html',
   styleUrls: ['./product-overview.component.scss']
 })
-export class ProductOverviewComponent {
+export class ProductOverviewComponent implements OnDestroy{
   filter = new FormControl('', {nonNullable: true});
   products: ProductModel[] = [];
   filteredProducts$ = new BehaviorSubject<ProductModel[]>([]);
@@ -66,7 +66,7 @@ export class ProductOverviewComponent {
     this.productService.deleteProduct(id).subscribe({
         next: () => {
           this.getProducts();
-          this.toastService.show('Product successful deleted.', {classname: 'bg-success text-light', delay: 3000});
+          this.toastService.show('Product successful deleted', {classname: 'bg-success text-light', delay: 3000});
         },
         error: errorMessage => {
           this.toastService.show(errorMessage, {classname: 'bg-danger text-light', delay: 3000});
@@ -77,6 +77,10 @@ export class ProductOverviewComponent {
 
   onEdit(product: ProductModel) {
     this.router.navigate(['edit'], {state: {product: product}, relativeTo: this.route});
+  }
+
+  ngOnDestroy() {
+    this.toastService.clear();
   }
 }
 

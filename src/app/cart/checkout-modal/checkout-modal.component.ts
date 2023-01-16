@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ProductModel} from "../../shared/models/product.model";
@@ -6,6 +6,7 @@ import {OrderService} from "../../shared/services/order.service";
 import {OrderModel} from "../../shared/models/order.model";
 import {LocalUserService} from "../../shared/services/localUser.service";
 import {ToastService} from "../../shared/toast/toast-service";
+import {CartService} from "../cart.service";
 
 @Component({
   selector: 'app-checkout-modal',
@@ -66,12 +67,12 @@ import {ToastService} from "../../shared/toast/toast-service";
     </div>
   `
 })
-export class CheckoutModalComponent implements OnInit {
+export class CheckoutModalComponent implements OnInit, OnDestroy {
   checkoutForm!: FormGroup;
   cartProducts: ProductModel[] = [];
   totalPrice: number = 0;
 
-  constructor(public activeModal: NgbActiveModal, private orderService: OrderService, private localUserService: LocalUserService, private toastService: ToastService) {
+  constructor(public activeModal: NgbActiveModal, private orderService: OrderService, private cartService: CartService, private localUserService: LocalUserService, private toastService: ToastService) {
   }
 
   ngOnInit(): void {
@@ -94,10 +95,16 @@ export class CheckoutModalComponent implements OnInit {
     this.orderService.createOrder(order).subscribe({
       next: () => {
         this.toastService.show('Your order is placed', {classname: 'bg-success text-light', delay: 3000});
+        this.cartService.cart = [];
+        this.cartService.cart$.next([]);
       },
       error: errorMessage => {
         this.toastService.show(errorMessage, {classname: 'bg-danger text-light', delay: 3000});
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.toastService.clear();
   }
 }

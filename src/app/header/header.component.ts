@@ -42,4 +42,8 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.authService.logout();
   }
+
+  updateUser(newUser: UserModel){
+    this.user = newUser;
+  }
 }

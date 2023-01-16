@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserModel} from "../../shared/models/user.model";
 import {AuthService} from "../auth.service";
@@ -13,7 +13,7 @@ import {ToastService} from "../../shared/toast/toast-service";
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
   error: string | undefined;
   userToBeEdited: UserModel | undefined;
@@ -93,11 +93,16 @@ export class RegisterComponent implements OnInit {
       this.localUserService.updateUserAccount(newUser).subscribe({
         next: () => {
           this.toastService.show('Your profile is updated', {classname: 'bg-success text-light', delay: 3000});
+          this.authService.updateLocalUserInfo(newUser);
         },
         error: errorMessage => {
           this.toastService.show(errorMessage, {classname: 'bg-danger text-light', delay: 3000});
         }
       })
     }
+  }
+
+  ngOnDestroy() {
+    this.toastService.clear();
   }
 }

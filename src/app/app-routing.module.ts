@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'movies', component: ProductsComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'profile', component: RegisterComponent},
+  {path: 'profile', component: RegisterComponent, canActivate: [AuthGuard]},
   {
     path: 'admin', component: AdminPortalComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}, children: [
       {path: '', component: ProductOverviewComponent},

@@ -28,7 +28,8 @@ export class AuthService {
     private router: Router,
     private errorHandlingService: ErrorHandlingService,
     private localUserService: LocalUserService,
-    private cartService: CartService) {
+    private cartService: CartService,
+  ) {
   }
 
   register(user: UserModel) {
@@ -100,5 +101,16 @@ export class AuthService {
 
     this.localUserService.localUser = localUser;
     this.localUserService.setLoggedIn = true;
+  }
+
+  public updateLocalUserInfo(updatedUser: UserModel) {
+    updatedUser.password = undefined;
+    this.localUserService.localUser.user = updatedUser;
+
+    if (localStorage.getItem('userData') !== null) {
+      localStorage.setItem('userData', JSON.stringify(this.localUserService.localUser));
+    } else if (sessionStorage.getItem('userData') !== null) {
+      sessionStorage.setItem('userData', JSON.stringify(this.localUserService.localUser));
+    }
   }
 }
