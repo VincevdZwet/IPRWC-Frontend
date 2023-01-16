@@ -6,7 +6,6 @@ import {map, startWith} from "rxjs/operators";
 import {ProductService} from "../shared/services/product.service";
 import {ProductModel} from "../shared/models/product.model";
 import {Router} from "@angular/router";
-import {state} from "@angular/animations";
 
 @Component({
   selector: 'app-admin-portal',
@@ -55,6 +54,7 @@ export class AdminPortalComponent implements OnInit {
       return (
         product.title?.toLowerCase().includes(term) ||
         pipe.transform(product.duration).includes(term) ||
+        pipe.transform(product.price).includes(term) ||
         product.releaseDate?.toDateString().toLowerCase().includes(term)
       );
     })

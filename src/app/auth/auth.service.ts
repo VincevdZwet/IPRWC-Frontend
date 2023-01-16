@@ -6,6 +6,7 @@ import {ErrorHandlingService} from "../shared/services/error-handling.service";
 import {LocalUserService} from "../shared/services/localUser.service";
 import {UserModel} from "../shared/models/user.model";
 import {Router} from "@angular/router";
+import {CartService} from "../cart/cart.service";
 
 export interface IAuthResponseData {
   token: string;
@@ -26,7 +27,8 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private errorHandlingService: ErrorHandlingService,
-    private localUserService: LocalUserService) {
+    private localUserService: LocalUserService,
+    private cartService: CartService) {
   }
 
   register(user: UserModel) {
@@ -76,6 +78,8 @@ export class AuthService {
   logout() {
     localStorage.removeItem('userData');
     sessionStorage.removeItem('userData');
+    this.cartService.cart = [];
+    this.cartService.cart$.next([]);
     this.localUserService.localUser = undefined;
     this.localUserService.setLoggedIn = false;
     this.router.navigate(['/movies']);

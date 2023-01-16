@@ -1,12 +1,14 @@
 import {Type} from "class-transformer";
-import {ProductModel} from "./product.model";
 import {UserModel} from "./user.model";
+import {OrderProductsModel} from "./orderProducts.model";
 
 export class OrderModel {
   id!: string;
-  products: ProductModel[] | undefined;
+  products: String[] | undefined;
   @Type(() => Date)
   createdAt: Date | undefined;
+  emailSentTo: string | undefined;
+  orderProducts: OrderProductsModel[] | undefined;
   invoiceNumber: number | undefined;
   bank: string | undefined;
   totalPrice: number | undefined;

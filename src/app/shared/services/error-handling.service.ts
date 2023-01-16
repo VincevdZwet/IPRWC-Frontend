@@ -1,11 +1,12 @@
 import {HttpErrorResponse} from "@angular/common/http";
 import {throwError} from "rxjs";
 import {Injectable} from "@angular/core";
-import {ErrorModel} from "../error.model";
+import {ErrorModel} from "../models/error.model";
 
 @Injectable({providedIn: "root"})
 export class ErrorHandlingService{
   public handleError(errorRes: HttpErrorResponse) {
+    console.log(errorRes);
     let errorMessage = 'An unknown error occurred!';
     if (!errorRes.error || !errorRes.error.message) {
       return throwError(() => errorMessage);

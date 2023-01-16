@@ -23,7 +23,7 @@ import {
   faIdCard,
   faImage,
   faLock,
-  faMoneyCheckAlt,
+  faMoneyCheckAlt, faSearch,
   faShoppingCart,
   faTimes,
   faUser,
@@ -31,7 +31,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {ProductEditComponent} from './products/product-edit/product-edit.component';
 import {AdminPortalComponent} from './admin-portal/admin-portal.component';
-import {NgbdTableFiltering} from "./admin-portal/table-filtering";
 import {DecimalPipe} from "@angular/common";
 import {ProductNewComponent} from './admin-portal/product-new/product-new.component';
 import {CartComponent} from './cart/cart.component';
@@ -39,6 +38,8 @@ import {CartListComponent} from './cart/cart-list/cart-list.component';
 import {CheckoutModalComponent} from "./cart/checkout-modal/checkout-modal.component";
 import {ErrorInterceptorService} from "./interceptors/error-interceptor.service";
 import {ToastsContainer} from "./shared/toast/toasts-container.component";
+import {OrdersComponent} from './orders/orders.component';
+import {OrderComponent} from './orders/order/order.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,9 @@ import {ToastsContainer} from "./shared/toast/toasts-container.component";
     ProductNewComponent,
     CartComponent,
     CartListComponent,
-    CheckoutModalComponent
+    CheckoutModalComponent,
+    OrdersComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,6 @@ import {ToastsContainer} from "./shared/toast/toasts-container.component";
     ReactiveFormsModule,
     FontAwesomeModule,
     HttpClientModule,
-    NgbdTableFiltering,
     ToastsContainer
   ],
   providers: [
@@ -96,7 +98,8 @@ export class AppModule {
       faShoppingCart,
       faTimes,
       faEuroSign,
-      faMoneyCheckAlt
+      faMoneyCheckAlt,
+      faSearch
     )
   }
 }

@@ -1,16 +1,17 @@
 <div class="col h-100">
   <div class="card h-100">
-    <img src="{{product?.imageUrl}}" class="card-img-top" alt="Image of movie">
+    <img [src]="image" class="card-img-top" alt="Image of movie" (error)="setPlaceholderImg()">
     <div class="card-body p-2 d-flex flex-column-reverse">
+      <span class="badge text-bg-success">&euro;{{product?.price}}</span>
       <p class="card-text text-truncate">{{product?.title}}</p>
     </div>
     <div class="card-footer p-2">
       <div class="d-flex justify-content-between align-items-center">
         <small class="text-muted">{{product?.releaseDate?.getFullYear()}} &sdot; {{product?.duration}} min</small>
-        <div class="btn-group">
-          <fa-icon icon="shopping-cart" class="fa-fw addItem" style="cursor: pointer;" (click)="onAddToCart()"
+        <div>
+          <fa-icon icon="shopping-cart" class="fa-fw addItem" role="button" (click)="onAddToCart()"
                    *ngIf="!AddedToCart"></fa-icon>
-          <fa-icon icon="shopping-cart" class="fa-fw text-success removeItem" style="cursor: pointer;"
+          <fa-icon icon="shopping-cart" class="fa-fw text-success removeItem" role="button"
                    (click)="onRemoveFromCart()" *ngIf="AddedToCart"></fa-icon>
         </div>
       </div>

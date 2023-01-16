@@ -4,7 +4,6 @@ import {ProductModel} from "../../shared/models/product.model";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {ProductService} from "../../shared/services/product.service";
 import {plainToInstance} from "class-transformer";
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product-new',
@@ -33,10 +32,10 @@ export class ProductNewComponent implements OnInit {
   }
 
   private initProductForm() {
-    let productTitle: string | undefined = '';
+    let productTitle: string | undefined;
     let productReleaseDate: NgbDateStruct = {day: 0, month: 0, year: 0};
     let productDuration: number | undefined = undefined;
-    let productImageUrl: string | undefined = '';
+    let productImageUrl: string | undefined;
     let productPrice: number | undefined = undefined;
 
     if (this.productToBeEdited != null) {
@@ -70,10 +69,10 @@ export class ProductNewComponent implements OnInit {
     const releaseDate = (this.productForm.get('releaseDate')?.value as NgbDateStruct)
     newProduct.releaseDate = new Date(releaseDate.year + "-" + releaseDate.month + "-" + releaseDate.day);
 
-    if (this.productToBeEdited){
+    if (this.productToBeEdited) {
       newProduct.id = this.productToBeEdited.id;
       this.productService.updateProduct(newProduct);
-    }else {
+    } else {
       this.productService.addProduct(newProduct);
     }
   }

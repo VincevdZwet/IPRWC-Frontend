@@ -7,6 +7,7 @@ import {AdminPortalComponent} from "./admin-portal/admin-portal.component";
 import {ProductNewComponent} from "./admin-portal/product-new/product-new.component";
 import {CartComponent} from "./cart/cart.component";
 import {AuthGuard} from "./auth/auth.guard";
+import {OrdersComponent} from "./orders/orders.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'movies', pathMatch: 'full'},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'new', component: ProductNewComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
   {path: 'edit', component: ProductNewComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
   {path: 'cart', component: CartComponent},
+  {path: 'orders', component: OrdersComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a routerLink="" class="navbar-brand">FlixTor</a>
+    <a routerLink="" class="navbar-brand">NetVids</a>
     <button type="button" class="navbar-toggler" (click)="collapsed = !collapsed">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -18,7 +18,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <div class="nav-item dropdown" ngbDropdown #accountDropdown="ngbDropdown">
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle role="button">Account</a>
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle role="button">Welcome {{user?.firstname || 'user'}}</a>
           <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
             <div class="d-grid px-3 gap-2" *ngIf="!user">
               <button type="button" class="btn btn-primary" routerLink="/login" (click)="accountDropdown.close()">Login</button>
@@ -26,7 +26,7 @@
             </div>
             <div *ngIf="user">
               <li><a ngbDropdownItem role="button" class="dropdown-item">My profile</a></li>
-              <li><a ngbDropdownItem role="button" class="dropdown-item">My orders</a></li>
+              <li><a ngbDropdownItem role="button" class="dropdown-item" routerLink="orders">My orders</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>

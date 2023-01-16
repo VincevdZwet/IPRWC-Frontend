@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
       'birthdate': new FormControl(null),
       'gender': new FormControl('pH'),
       'email': new FormControl(null, [Validators.required, Validators.email, Validators.pattern(/^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/)]),
-      'password': new FormControl(null, Validators.required)
+      'password': new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(30)])
     });
   }
 

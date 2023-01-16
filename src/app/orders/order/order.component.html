@@ -1,0 +1,36 @@
+<article class="row">
+  <h6 class="fw-bold">Movies orderd:</h6>
+  <div class="row" *ngFor="let product of order?.orderProducts">
+    <div class="col-auto">
+      <p class="mb-0 fw-semibold">{{product.productName}}</p>
+    </div>
+    <div class="col-auto">
+      <p class="mb-0">&euro;{{product.productPrice}}</p>
+    </div>
+  </div>
+  <hr class="mt-3">
+  <h6 class="fw-bold">Order details:</h6>
+  <div class="row d-none d-sm-flex">
+    <div class="col-auto">
+      <p class="mb-0">Bank payed with:</p>
+      <p class="mb-0">Sent to:</p>
+      <p class="mb-0">Ordered on:</p>
+    </div>
+    <div class="col-auto">
+      <p class="mb-0">{{order?.bank}}</p>
+      <p class="mb-0">{{order?.emailSentTo}}</p>
+      <p class="mb-0">{{order?.createdAt | date:'yyyy MMM dd, H:mm:ss'}}</p>
+    </div>
+  </div>
+  <div class="row d-flex d-sm-none">
+    <div class="col-auto">
+      <p class="mb-0 fw-semibold">Bank payed with:</p>
+      <p class="mb-1">{{order?.bank}}</p>
+      <p class="mb-0 fw-semibold">Sent to:</p>
+      <p class="mb-1">{{order?.emailSentTo}}</p>
+      <p class="mb-0 fw-semibold">Ordered on:</p>
+      <p>{{order?.createdAt | date:'yyyy MMM dd, H:mm:ss'}}</p>
+    </div>
+  </div>
+  <h6 class="fw-bold mt-sm-3">Total price: &euro;{{order?.totalPrice}}</h6>
+</article>

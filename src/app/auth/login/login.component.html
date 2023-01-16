@@ -2,18 +2,18 @@
   <div class="col-md-10 col-lg-8 col-xl-6">
     <div class="card">
       <div class="card-body">
-        <h1 class="text-center card-title">FlixTor</h1>
+        <h1 class="text-center card-title">NetVids</h1>
         <div class="alert alert-danger" *ngIf="error">
           <p class="m-0">{{error}}</p>
         </div>
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
           <div class="input-group mb-3">
-            <span class="input-group-text"><fa-icon icon="envelope"></fa-icon></span>
+            <span class="input-group-text"><fa-icon class="fa-fw" icon="envelope"></fa-icon></span>
             <input type="email" autocomplete="username" class="form-control" placeholder="Email" name="email"
                    formControlName="email">
           </div>
           <div class="input-group mb-3">
-            <span class="input-group-text"><fa-icon icon="lock"></fa-icon></span>
+            <span class="input-group-text"><fa-icon class="fa-fw" icon="lock"></fa-icon></span>
             <input type="password" autocomplete="current-password" class="form-control" placeholder="Password"
                    name="password" formControlName="password">
           </div>

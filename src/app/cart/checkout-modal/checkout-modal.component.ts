@@ -2,8 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ProductModel} from "../../shared/models/product.model";
-import {CheckoutService} from "../../shared/services/checkout.service";
+import {OrderService} from "../../shared/services/order.service";
 import {OrderModel} from "../../shared/models/order.model";
+import {LocalUserService} from "../../shared/services/localUser.service";
 
 @Component({
   selector: 'app-checkout-modal',
@@ -37,9 +38,9 @@ import {OrderModel} from "../../shared/models/order.model";
               <div class="input-group mb-3">
                   <span class="input-group-text"><fa-icon icon="envelope" class="fa-fw"></fa-icon></span>
                   <input type="email" autocomplete="username" class="form-control" placeholder="Email" name="email"
-                         formControlName="email" aria-describedby="emailHelp">
+                         formControlName="emailSentTo" aria-describedby="emailHelp">
                   <div id="emailHelp" class="form-text w-100">
-                      <strong>We will send your products to this email!</strong>
+                      <strong class="text-danger">We will send your products to this email!</strong>
                   </div>
               </div>
               <div class="input-group mb-3">
@@ -68,12 +69,12 @@ export class CheckoutModalComponent implements OnInit{
   cartProducts: ProductModel[] = [];
   totalPrice: number = 0;
 
-  constructor(public activeModal: NgbActiveModal, private checkoutService: CheckoutService) {
+  constructor(public activeModal: NgbActiveModal, private orderService: OrderService, private localUserService: LocalUserService) {
   }
 
   ngOnInit(): void {
     this.checkoutForm = new FormGroup({
-      'email': new FormControl(null, [Validators.required, Validators.email, Validators.pattern(/^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/)]),
+      'emailSentTo': new FormControl(this.localUserService.localUser.user?.email, [Validators.required, Validators.email, Validators.pattern(/^(?=.{1,64}@)[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/)]),
       'bank': new FormControl(null, Validators.required)
     })
   }
@@ -82,8 +83,12 @@ export class CheckoutModalComponent implements OnInit{
   onCheckout() {
     let order: OrderModel = this.checkoutForm.value;
     order.totalPrice = this.totalPrice;
-    order.products = this.cartProducts;
-    console.log(order)
-    this.checkoutService.addOrder(order);
+    let productIds: String[] = [];
+    for (const product of this.cartProducts){
+      productIds.push(product.id)
+    }
+    order.products = productIds;
+
+    this.orderService.createOrder(order);
   }
 }

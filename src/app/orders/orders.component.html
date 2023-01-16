@@ -1,0 +1,14 @@
+<div class="mt-5">
+  <h1>Your orders</h1>
+  <hr>
+  <ngb-accordion #accordion="ngbAccordion">
+    <ngb-panel *ngFor="let order of orders">
+      <ng-template ngbPanelTitle>
+        <h5 class="mb-0">{{order.createdAt | date: 'yyyy MMM dd'}} | Invoice number: {{order.invoiceNumber}}</h5>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <app-order [order]="order"></app-order>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
