@@ -54,7 +54,10 @@
           <div class="input-group mb-3">
             <span class="input-group-text"><fa-icon icon="lock" class="fa-fw"></fa-icon></span>
             <input type="password" autocomplete="current-password" class="form-control" placeholder="Password"
-                   name="password" formControlName="password">
+                   name="password" formControlName="password" aria-describedby="paswdHelp">
+            <div id="paswdHelp" class="form-text w-100">
+              Your password must be atleast 8 characters long
+            </div>
           </div>
           <div class="d-grid justify-content-end">
             <button class="btn-primary btn" type="submit"

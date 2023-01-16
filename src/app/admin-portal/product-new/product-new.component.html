@@ -1,3 +1,4 @@
+<app-toasts></app-toasts>
 <div class="row justify-content-center mt-5">
   <div class="col-lg-6 col-md-8">
     <div class="card">
@@ -34,7 +35,7 @@
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text"><fa-icon icon="clock" class="fa-fw"></fa-icon></span>
-            <input type="text" class="form-control" placeholder="Duration of the movie" name="duration"
+            <input type="number" class="form-control" placeholder="Duration of the movie" name="duration"
                    formControlName="duration" aria-describedby="formatHelpDuration">
             <div id="formatHelpDuration" class="form-text w-100">
               Duration in <strong>minutes</strong>
@@ -47,7 +48,7 @@
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text"><fa-icon icon="euro-sign" class="fa-fw"></fa-icon></span>
-            <input type="text" class="form-control" placeholder="Price"
+            <input type="number" class="form-control" placeholder="Price"
                    name="price" formControlName="price">
           </div>
           <div class="d-grid justify-content-end">

@@ -10,6 +10,7 @@ import {LocalUserService} from "./shared/services/localUser.service";
 })
 export class AppComponent implements OnInit {
   @HostListener('document:visibilitychange', ['$event'])
+  @HostListener('window:beforeunload', ['$event'])
   unloadHandler() {
     if (this.localUserService.isLoggedIn.value) {
       this.cartService.saveCart();

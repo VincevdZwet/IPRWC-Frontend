@@ -6,13 +6,14 @@ import {plainToInstance} from "class-transformer";
 import {ErrorHandlingService} from "../shared/services/error-handling.service";
 import {HttpClient} from "@angular/common/http";
 import {CartModel} from "../shared/models/cart.model";
+import {LocalUserService} from "../shared/services/localUser.service";
 
 @Injectable({providedIn: "root"})
 export class CartService {
   public cart$: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
   public cart: ProductModel[] = [];
 
-  constructor(private errorHandlingService: ErrorHandlingService, private http: HttpClient) {
+  constructor(private errorHandlingService: ErrorHandlingService, private http: HttpClient, private localUserService: LocalUserService) {
   }
 
   public addToCart(product: ProductModel): void {
@@ -29,7 +30,6 @@ export class CartService {
     });
 
     this.cart$.next(this.cart.slice());
-    this.saveCart();
   }
 
   public isInCart(product: ProductModel): boolean {
@@ -39,16 +39,9 @@ export class CartService {
   public saveCart(): void {
     let cartToSave: CartModel = new CartModel();
     cartToSave.products = this.cart;
-    console.log(cartToSave);
+
     this.http.put("/cart/", cartToSave)
-      .pipe(catchError(this.errorHandlingService.handleError)).subscribe({
-      next: () => {
-        console.log("done")
-      },
-      error: err => {
-        console.log(err);
-      }
-    })
+      .pipe(catchError(this.errorHandlingService.handleError)).subscribe();
   }
 
   getCart() {

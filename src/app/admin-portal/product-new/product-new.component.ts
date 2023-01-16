@@ -4,6 +4,8 @@ import {ProductModel} from "../../shared/models/product.model";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {ProductService} from "../../shared/services/product.service";
 import {plainToInstance} from "class-transformer";
+import {ToastService} from "../../shared/toast/toast-service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-new',
@@ -20,12 +22,14 @@ export class ProductNewComponent implements OnInit {
   minDate = {year: this.today.getFullYear() - 100, month: 1, day: 1};
   maxDate = {year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate()};
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private toastService: ToastService, private router: Router) {
   }
 
   ngOnInit() {
     if (history.state.product) {
       this.productToBeEdited = history.state.product;
+    } else {
+      this.router.navigate(['/new']);
     }
 
     this.initProductForm();
@@ -71,9 +75,23 @@ export class ProductNewComponent implements OnInit {
 
     if (this.productToBeEdited) {
       newProduct.id = this.productToBeEdited.id;
-      this.productService.updateProduct(newProduct);
+      this.productService.updateProduct(newProduct).subscribe({
+        next: () => {
+          this.toastService.show('Product successful updated.', {classname: 'bg-success text-light', delay: 3000});
+        },
+        error: errorMessage => {
+          this.error = errorMessage;
+        }
+      });
     } else {
-      this.productService.addProduct(newProduct);
+      this.productService.addProduct(newProduct).subscribe({
+        next: () => {
+          this.toastService.show('Product successful created.', {classname: 'bg-success text-light', delay: 3000});
+        },
+        error: errorMessage => {
+          this.error = errorMessage;
+        }
+      });
     }
   }
 }

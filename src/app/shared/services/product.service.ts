@@ -12,15 +12,8 @@ export class ProductService {
   }
 
   addProduct(product: ProductModel) {
-    this.http.put('/product/',
-      product).pipe(catchError(this.errorHandlingService.handleError)).subscribe({
-      next: () => {
-        console.log("done")
-      },
-      error: err => {
-        console.log(err);
-      }
-    })
+    return this.http.put('/product/',
+      product).pipe(catchError(this.errorHandlingService.handleError))
   }
 
   getProducts() {
@@ -34,12 +27,8 @@ export class ProductService {
   }
 
   updateProduct(product: ProductModel) {
-    this.http.post('/product/' + product.id,
+    return this.http.post('/product/' + product.id,
       product
-    ).pipe(catchError(this.errorHandlingService.handleError)).subscribe({
-      next: () => {
-        console.log('done');
-      }
-    })
+    ).pipe(catchError(this.errorHandlingService.handleError));
   }
 }

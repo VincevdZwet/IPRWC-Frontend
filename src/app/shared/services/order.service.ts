@@ -19,16 +19,8 @@ export class OrderService {
   }
 
   createOrder(order: OrderModel) {
-    console.log(order);
-    this.http.put('/order/',
-      order).pipe(catchError(this.errorHandlingService.handleError)).subscribe({
-      next: () => {
-        console.log("done order")
-      },
-      error: err => {
-        console.log(err);
-      }
-    })
+    return this.http.put('/order/',
+      order).pipe(catchError(this.errorHandlingService.handleError));
   }
 
 }

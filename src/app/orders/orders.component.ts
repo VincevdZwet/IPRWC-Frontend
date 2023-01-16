@@ -19,7 +19,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.ordersSubscription = this.orderService.getOrders().subscribe({
         next: orders => {
           this.orders = orders;
-          console.log(this.orders);
         }
       }
     );

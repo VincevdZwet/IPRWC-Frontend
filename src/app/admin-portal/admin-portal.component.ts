@@ -6,6 +6,7 @@ import {map, startWith} from "rxjs/operators";
 import {ProductService} from "../shared/services/product.service";
 import {ProductModel} from "../shared/models/product.model";
 import {Router} from "@angular/router";
+import {ToastService} from "../shared/toast/toast-service";
 
 @Component({
   selector: 'app-admin-portal',
@@ -17,7 +18,7 @@ export class AdminPortalComponent implements OnInit {
   products: ProductModel[] = [];
   filteredProducts$ = new BehaviorSubject<ProductModel[]>([]);
 
-  constructor(private pipe: DecimalPipe, private productService: ProductService, private router: Router) {
+  constructor(private pipe: DecimalPipe, private productService: ProductService, private router: Router, private toastService: ToastService) {
   }
 
   ngOnInit() {
@@ -64,6 +65,10 @@ export class AdminPortalComponent implements OnInit {
     this.productService.deleteProduct(id).subscribe({
         next: () => {
           this.getProducts();
+          this.toastService.show('Product successful deleted.', {classname: 'bg-success text-light', delay: 3000});
+        },
+        error: errorMessage => {
+          this.toastService.show(errorMessage, {classname: 'bg-danger text-light', delay: 3000});
         }
       }
     )
