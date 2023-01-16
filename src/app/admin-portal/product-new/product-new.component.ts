@@ -78,6 +78,7 @@ export class ProductNewComponent implements OnInit {
       this.productService.updateProduct(newProduct).subscribe({
         next: () => {
           this.toastService.show('Product successful updated.', {classname: 'bg-success text-light', delay: 3000});
+          this.router.navigate(['admin']);
         },
         error: errorMessage => {
           this.error = errorMessage;
@@ -87,6 +88,7 @@ export class ProductNewComponent implements OnInit {
       this.productService.addProduct(newProduct).subscribe({
         next: () => {
           this.toastService.show('Product successful created.', {classname: 'bg-success text-light', delay: 3000});
+          this.router.navigate(['admin']);
         },
         error: errorMessage => {
           this.error = errorMessage;
