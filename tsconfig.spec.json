@@ -4,9 +4,10 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
-      "jasmine",
+      "jest",
       "@angular/localize"
-    ]
+    ],
+    "module": "CommonJs",
   },
   "include": [
     "src/**/*.spec.ts",
