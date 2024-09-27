@@ -11,7 +11,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const urlReq = req.clone({
-      url: 'http://localhost:8080' + req.url
+      url: 'http://localhost:8000' + req.url
     });
 
     if (!this.localUserService.isLoggedIn.value) {
